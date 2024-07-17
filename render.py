@@ -12,8 +12,12 @@ class Render:
         self.font = pygame.font.Font(None, 24)
 
 
-    def draw_background(self):
+    def draw_background(self, img):
         self.screen.fill(self.background)
+        image = pygame.image.load(img)
+        for x in range(self.screen.get_width()//20):
+            for y in range(self.screen.get_height()//20):
+                self.screen.blit(image,(x*20,y*20))
 
     def draw_snack(self, snack):
         for x,y in snack.body:

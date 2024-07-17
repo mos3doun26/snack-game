@@ -25,7 +25,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     self.handle_key_pressed(event.key)
             # draw background
-            self.render.draw_background()
+            self.render.draw_background(r"C:\Users\mos3d\OneDrive\Desktop\python projects\snack-game\images\tile.png")
             # move the snack
             self.snack.move()
             # check if snack eat food
