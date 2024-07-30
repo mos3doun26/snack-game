@@ -1,13 +1,17 @@
 import random
 import config
+import pygame
 class Food:
-    def __init__(self, snack_body):
-        self.position = self.create(snack_body)
+    def __init__(self, food_img, snake):
+        self.food_img = food_img
+        self.food_width = self.food_img.get_width()
+        self.food_height = self.food_img.get_height()
+        self.position = self.create(snake)
 
-    def create(self, snack_body):
+    def create(self, snake):
         while True:
             x = random.randint(0,(config.WIDTH-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
             y = random.randint(0,(config.HIGHT-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
-            if (x,y) not in snack_body:
-                return (x,y)
-        
+            snake_segments_positions = [segment.topleft for segment in snake.body]
+            if (x,y) not in snake_segments_positions:
+                return pygame.rect.Rect(x,y,self.food_width,self.food_height)
