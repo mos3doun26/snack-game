@@ -10,8 +10,8 @@ class Food:
 
     def create(self, snake):
         while True:
-            x = random.randint(0,(config.WIDTH-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
-            y = random.randint(0,(config.HIGHT-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
+            x = random.randint(4,(config.WIDTH-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
+            y = random.randint(4,(config.HIGHT-config.BLOCK_SIZE)//config.BLOCK_SIZE) * config.BLOCK_SIZE
             snake_segments_positions = [segment.topleft for segment in snake.body]
             if (x,y) not in snake_segments_positions:
-                return pygame.rect.Rect(x,y,self.food_width,self.food_height)
+                return pygame.rect.Rect(x-self.food_width,y-self.food_height,self.food_width,self.food_height)

@@ -12,6 +12,9 @@ class Game:
         self.snake_head_img = pygame.image.load(config.snake_head_img)
         self.snake_body_img = pygame.image.load(config.snake_body_img)
         self.food_img = pygame.image.load(config.food_img)
+        self.score_img = pygame.image.load(config.score_img)
+        self.bush_img = pygame.image.load(config.bush_img)
+        self.speed_img = pygame.image.load(config.speed_img)
         # seting screen
         self.screen = pygame.display.set_mode((config.WIDTH, config.HIGHT))
         pygame.display.set_caption("snake Game")
@@ -19,7 +22,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.snake = snake(self.snake_head_img, self.snake_body_img,config.BLOCK_SIZE, config.WIDTH//2, config.HIGHT//2)
         self.food = Food(self.food_img,self.snake)
-        self.render = Render(self.screen)
+        self.render = Render(self.screen, self.bush_img)
         self.running = True
         self.score = 0
         
@@ -27,7 +30,7 @@ class Game:
         while self.running:
             self.handle_events()
             # draw background
-            self.render.draw_background(self.background_img)
+            self.render.draw_background(self.background_img, self.bush_img)
             # move the snake
             self.snake.move()
             # check if snake eat food
@@ -41,7 +44,9 @@ class Game:
             # draw food
             self.render.draw_food(self.food)
             # set score
-            self.render.draw_score(self.score)
+            self.render.draw_incon(self.score, self.score_img, config.SCORE_POS)
+            # set speed
+            self.render.draw_incon(config.SPEED, self.speed_img, config.SPEED_POS)
             # check wall collisions
             self.check_collions_happend()
             
@@ -92,8 +97,6 @@ class Game:
             or self.snake.head.right > self.screen.get_width()-self.snake.head.width
             or self.snake.head.top < bush_height
             or self.snake.head.bottom > self.screen.get_height() - self.snake.head.height
-            # or self.snake.head in self.snake.body[1:]
+            or self.snake.head in self.snake.body[1:]
         )
-
-game = Game()
-print(game.food_img.get_width())
+    
